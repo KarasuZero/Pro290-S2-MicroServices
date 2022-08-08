@@ -1,0 +1,42 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      # defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka.c:8761/eureka
+
+spring:
+  application:
+    name: gateway-service-sen300
+  cloud:
+    gateway:
+      routes:
+      #only to be touched when new apis need to be added.
+      - id: userService
+        uri: lb://userAPI
+        predicates:
+        - Path=/users/**
+        
+      - id: basketService
+        uri: lb://basketAPI
+        predicates:
+        - Path=/basket/**
+
+      - id: emailService
+        uri: lb://emailAPI
+        predicates:
+        - Path=/email/**
+
+
+      - id: itemService
+        uri: lb://ITEM-SERVICE
+        predicates:
+        - Path=/itemAPI/**
+
+
+      - id: cardService
+        uri: lb://CARD-API
+        predicates:
+        - Path=/creditCard/**
