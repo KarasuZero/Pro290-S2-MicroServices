@@ -16,7 +16,7 @@ services:
   inventorysqldb.c:
     container_name: inventorysqldb.c
     build:
-      context: ./DBSetup
+      context: ./DBSetup/InventorySetup/
       dockerfile: ItemSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
@@ -32,7 +32,7 @@ services:
   userinfosqldb.c:
     container_name: userinfosqldb.c
     build:
-      context: ./DBSetup
+      context: ./DBSetup/UserInfoSetup/
       dockerfile: UserSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
@@ -48,7 +48,7 @@ services:
   emailmongodb.c:
     container_name: emailmongodb.c
     build:
-      context: ./DBSetup
+      context: ./DBSetup/EmailSetup/
       dockerfile: UserSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
@@ -64,7 +64,7 @@ services:
   cartmongodb.c:
     container_name: cartmongodb.c
     build:
-      context: ./DBSetup
+      context: ./DBSetup/CartSetup/
       dockerfile: UserSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
@@ -84,9 +84,9 @@ services:
       dockerfile: Dockerfile
     image: java-api-email.1.c:1
     ports:
-      - "9503:80"
+      - "9500:80"
     networks:
-      - netSEN300.1
+      - netPRO290.1
     depends_on:
       - userinfosqldb.c
       - eureka.c
@@ -98,9 +98,9 @@ services:
       dockerfile: Dockerfile
     image: dotnet-api-card.1.c:1
     ports:
-      - "9504:80"
+      - "9501:80"
     networks:
-      - netSEN300.1
+      - netPRO290.1
     depends_on:
       - userinfosqldb.c
       - eureka.c
@@ -112,13 +112,27 @@ services:
       dockerfile: Dockerfile
     image: dotnet-api-inventory.1.c:1
     ports:
-      - "9505:80"
+      - "9502:80"
     networks:
-      - netSEN300.1
+      - netPRO290.1
     depends_on:
       - inventorysqldb.c
       - eureka.c
 
+  dotnet-api-delivery.1.c:
+    container_name: dotnet-api-delivery.1.c
+    build:
+      context: ./DeliveryAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-delivery.1.c:1
+    ports:
+      - "9503:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - deliverymongodb.c
+      - eureka.c
+  
   apigateway.c:
     container_name: apigateway.c
     build:
@@ -128,6 +142,6 @@ services:
     ports:
       - "8888:8888"
     networks:
-      - netSEN300.1      
+      - netPRO290.1      
     depends_on:
       - eureka.c
