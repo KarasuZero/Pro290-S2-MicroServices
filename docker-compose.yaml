@@ -1,0 +1,133 @@
+version: "3.8"
+
+networks:
+  netPRO290.1:
+    external: false
+
+services:
+  eureka.c:
+    container_name: eureka.c
+    image: steeltoeoss/eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - netPRO290.1
+  
+  inventorysqldb.c:
+    container_name: inventorysqldb.c
+    build:
+      context: ./DBSetup
+      dockerfile: ItemSQL.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: inventorysqldb.c
+    ports:
+      - '1433:1433'
+    networks:
+      - netPRO290.1
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+  
+  userinfosqldb.c:
+    container_name: userinfosqldb.c
+    build:
+      context: ./DBSetup
+      dockerfile: UserSQL.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: userinfosqldb.c
+    ports:
+      - '1434:1433'
+    networks:
+      - netPRO290.1
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+
+  emailmongodb.c:
+    container_name: emailmongodb.c
+    build:
+      context: ./DBSetup
+      dockerfile: UserSQL.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: emailmongodb.c
+    ports:
+      - '1435:1433'
+    networks:
+      - netPRO290.1
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+
+  cartmongodb.c:
+    container_name: cartmongodb.c
+    build:
+      context: ./DBSetup
+      dockerfile: UserSQL.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: cartmongodb.c
+    ports:
+      - '1436:1433'
+    networks:
+      - netPRO290.1
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+
+  java-api-email.1.c:
+    container_name: java-api-email.1.c
+    build:
+      context: ./EmailAPI/
+      dockerfile: Dockerfile
+    image: java-api-email.1.c:1
+    ports:
+      - "9503:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - userinfosqldb.c
+      - eureka.c
+  
+  dotnet-api-card.1.c:
+    container_name: dotnet-api-card.1.c
+    build:
+      context: ./CardAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-card.1.c:1
+    ports:
+      - "9504:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - userinfosqldb.c
+      - eureka.c
+
+  dotnet-api-inventory.1.c:
+    container_name: dotnet-api-inventory.1.c
+    build:
+      context: ./InvetoryAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-inventory.1.c:1
+    ports:
+      - "9505:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - inventorysqldb.c
+      - eureka.c
+
+  apigateway.c:
+    container_name: apigateway.c
+    build:
+      context: ./GatewayDemo/
+      dockerfile: 2.dockerfile
+    image: apigateway.c:1    
+    ports:
+      - "8888:8888"
+    networks:
+      - netSEN300.1      
+    depends_on:
+      - eureka.c
