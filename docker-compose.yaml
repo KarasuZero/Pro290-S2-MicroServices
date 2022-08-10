@@ -47,19 +47,18 @@ services:
 
   emailmongodb.c:
     container_name: emailmongodb.c
-    build:
-      context: ./DBSetup/EmailSetup/
-      dockerfile: EmailMongo.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
-    image: emailmongodb.c
+    image: mongo:4.0.17-xenial
     ports:
-      - '1435:27017'
+      - '27017:27017'
     networks:
       - netPRO290.1
-#    environment:
-#      - ACCEPT_EULA=Y
-#      - SA_PASSWORD=\\Secure@Password421
+    environment:
+      - MONGO_INITDB_DATABASE=${EMAIL_DB}
+    restart: always
+    volumes:
+      - db-data:/data/db:delegated
 
   cartmongodb.c:
     container_name: cartmongodb.c
@@ -70,12 +69,14 @@ services:
     # the old way when I wasn't using a dockerfile
     image: cartmongodb.c
     ports:
-      - '1436:27017'
+      - '27018:27017'
     networks:
       - netPRO290.1
-#    environment:
-#      - ACCEPT_EULA=Y
-#      - SA_PASSWORD=\\Secure@Password421
+    environment:
+      - MONGO_INITDB_DATABASE=${CART_DB}
+    restart: always
+    volumes:
+      - db-data:/data/db:delegated
 
   deliverymongodb.c:
     container_name: deliverymongodb.c
@@ -86,12 +87,14 @@ services:
     # the old way when I wasn't using a dockerfile
     image: deliverymongodb.c
     ports:
-      - '1437:27017'
+      - '27019:27017'
     networks:
       - netPRO290.1
-#    environment:
-#      - ACCEPT_EULA=Y
-#      - SA_PASSWORD=\\Secure@Password421
+    environment:
+      - MONGO_INITDB_DATABASE=${DELIVERY_DB}
+    restart: always
+    volumes:
+      - db-data:/data/db:delegated
 
   java-api-email.1.c:
     container_name: java-api-email.1.c
