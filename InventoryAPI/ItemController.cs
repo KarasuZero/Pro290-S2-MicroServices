@@ -43,6 +43,17 @@ namespace Controllers
         [Route("getSupplier/{id}")]
         public async Task<ActionResult<Item>> getSupplier(long id)
         {
+            var quest = await _db.supplier_table.FindAsync(id);
+            if (quest == null) {
+                return NotFound();
+            }
+            return Ok(quest);
+        }
+
+        [HttpGet]
+        [Route("getItemsSupplier/{id}")]
+        public async Task<ActionResult<Item>> getItemsSupplier(long id)
+        {
             var quest = await _db.item_table.ToListAsync();
             quest = quest.Where(x => x.SupplierID.Equals(id)).ToList();
             if (quest == null) {

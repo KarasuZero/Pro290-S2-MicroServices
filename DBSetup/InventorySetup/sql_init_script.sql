@@ -1,1 +1,13 @@
 CREATE DATABASE InventorySQLDB
+
+CREATE TABLE itemTable (
+    Id BIGINT PRIMARY NOT NULL,
+    Title NVARCHAR(MAX),
+    ItemDesc NVARCHAR(MAX),
+    UnitPrice FLOAT(53)
+);
+
+CREATE TABLE supplierTable (
+    Id BIGINT PRIMARY NOT NULL,
+    Name NVARCHAR(MAX)
+)
