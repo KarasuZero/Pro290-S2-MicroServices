@@ -9,6 +9,13 @@ const CheckOut = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+
+      <CustomText
+        label="Check Out"
+        fontSize={22}
+        alignSelf="center"
+        fontWeight="bold"
+      />
      
       <CustomButton
         text="Go To Home"

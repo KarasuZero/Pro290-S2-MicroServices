@@ -6,12 +6,12 @@ import CustomButton from "../../components/CustomButton";
 import CustomInput from "../../components/CustomInput";
 import CustomText from "../../components/CustomText";
 
-const Login = ({ navigation }) => {
+const Register = ({ navigation }) => {
  
   return (
     <SafeAreaView style={styles.mainContainer}>
       <CustomText
-        label="Login"
+        label="Register"
         fontSize={22}
         alignSelf="center"
         fontWeight="bold"
@@ -19,18 +19,18 @@ const Login = ({ navigation }) => {
 
       <input></input>
       <input type="password"></input>
-      <button type="button">Login</button>
+      <button type="button">Register</button>
       <CustomButton
-        text="Register Page"
+        text="Back to Login"
         alignSelf="center"
         marginTop={verticalScale(50)}
-        onPress={() => navigation.navigate("Product")}
+        onPress={() => navigation.navigate("Login")}
       />
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = ScaledSheet.create({
   mainContainer: {

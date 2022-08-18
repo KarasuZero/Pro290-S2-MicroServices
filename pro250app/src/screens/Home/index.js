@@ -27,6 +27,7 @@ const Home = ({ navigation }) => {
         alignSelf="center"
         fontWeight="bold"
       />
+     
       <CustomButton
         text="Go To Login"
         alignSelf="center"
