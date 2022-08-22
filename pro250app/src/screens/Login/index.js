@@ -1,4 +1,4 @@
-import { Alert, View } from "react-native";
+import { Button,Alert, View } from "react-native";
 import React, { useState } from "react";
 import { ScaledSheet, verticalScale } from "react-native-size-matters";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,14 +17,19 @@ const Login = ({ navigation }) => {
         fontWeight="bold"
       />
 
-      <input></input>
+      <input ></input>
       <input type="password"></input>
-      <button type="button">Login</button>
+      
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate("Product")}
+      />
+      
       <CustomButton
         text="Register Page"
         alignSelf="center"
         marginTop={verticalScale(50)}
-        onPress={() => navigation.navigate("Product")}
+        onPress={() => navigation.navigate("Register")}
       />
     </SafeAreaView>
   );
@@ -37,5 +42,8 @@ const styles = ScaledSheet.create({
     width: "100%",
     padding: "20@ms",
     flex: 1,
+  },
+  inputField : {
+    padding:"20@ms"
   },
 });
