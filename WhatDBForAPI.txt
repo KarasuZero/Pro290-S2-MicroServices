@@ -5,3 +5,12 @@ EmailDB - Mongo
 CartDB - Mongo
 
 *Might change to be a different table that is called just so we don't have initialize 2 db for items.
+
+Finished API
+    - Card
+    - InvDB
+Being Worked On
+    - SPA App
+    - UserDB
+    - EmailDB
+    - CartDB
