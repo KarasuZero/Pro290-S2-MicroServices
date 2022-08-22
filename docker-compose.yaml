@@ -78,24 +78,6 @@ services:
     volumes:
       - db-data:/data/db:delegated
 
-  deliverymongodb.c:
-    container_name: deliverymongodb.c
-    build:
-      context: ./DBSetup/DeliverySetup/
-      dockerfile: DeliveryMongo.dockerfile
-    #image: sqlserver.c:1
-    # the old way when I wasn't using a dockerfile
-    image: deliverymongodb.c
-    ports:
-      - '27019:27017'
-    networks:
-      - netPRO290.1
-    environment:
-      - MONGO_INITDB_DATABASE=${DELIVERY_DB}
-    restart: always
-    volumes:
-      - db-data:/data/db:delegated
-
   java-api-email.1.c:
     container_name: java-api-email.1.c
     build:
@@ -136,20 +118,6 @@ services:
       - netPRO290.1
     depends_on:
       - inventorysqldb.c
-      - eureka.c
-
-  dotnet-api-delivery.1.c:
-    container_name: dotnet-api-delivery.1.c
-    build:
-      context: ./DeliveryAPI/
-      dockerfile: Dockerfile
-    image: dotnet-api-delivery.1.c:1
-    ports:
-      - "9503:80"
-    networks:
-      - netPRO290.1
-    depends_on:
-      - deliverymongodb.c
       - eureka.c
   
   apigateway.c:

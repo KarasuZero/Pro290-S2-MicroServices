@@ -1,10 +1,4 @@
-FROM tomcat:9.0-jdk11-openjdk
-
-ENV DB_HOST=itemsqldb.c
-ENV DB_PORT=1433
-ENV DB_USER=sa
-ENV DB_PASSWORD=abc123!!23
-ENV EUREKA_NAME=eureka.c
-
-COPY ./target/Market-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
-EXPOSE 8080
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY bin/Release/net6.0/publish/ .
+ENTRYPOINT ["dotnet", "CartAPI.dll"]
