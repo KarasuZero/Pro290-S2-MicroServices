@@ -7,7 +7,7 @@ namespace Controllers
     [Route("cartAPI")]
     public class MyController : ControllerBase
     {
-        private readonly ItemDB _db;
+        private readonly CartDB _db;
 
         public MyController(ILogger<MyController> logger, CartDB db)
         {
@@ -30,7 +30,7 @@ namespace Controllers
         
         [HttpGet]
         [Route("getCart/{id}")]
-        public async Task<ActionResult<Item>> getQuest(long id)
+        public async Task<ActionResult<Cart>> getQuest(long id)
         {
             var quest = await _db.cart_table.FindAsync(id);
             if (quest == null) {
