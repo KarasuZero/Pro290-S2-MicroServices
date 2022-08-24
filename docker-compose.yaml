@@ -44,53 +44,6 @@ services:
 #    environment:
 #      - ACCEPT_EULA=Y
 #      - SA_PASSWORD=\\Secure@Password421
-
-  emailmongodb.c:
-    container_name: emailmongodb.c
-    #image: sqlserver.c:1
-    # the old way when I wasn't using a dockerfile
-    image: mongo:4.0.17-xenial
-    ports:
-      - '27017:27017'
-    networks:
-      - netPRO290.1
-    environment:
-      - MONGO_INITDB_DATABASE=${EMAIL_DB}
-    restart: always
-    volumes:
-      - db-data:/data/db:delegated
-
-  cartmongodb.c:
-    container_name: cartmongodb.c
-    build:
-      context: ./DBSetup/CartSetup/
-      dockerfile: CartMongo.dockerfile
-    #image: sqlserver.c:1
-    # the old way when I wasn't using a dockerfile
-    image: cartmongodb.c
-    ports:
-      - '27018:27017'
-    networks:
-      - netPRO290.1
-    environment:
-      - MONGO_INITDB_DATABASE=${CART_DB}
-    restart: always
-    volumes:
-      - db-data:/data/db:delegated
-
-  java-api-email.1.c:
-    container_name: java-api-email.1.c
-    build:
-      context: ./EmailAPI/
-      dockerfile: Dockerfile
-    image: java-api-email.1.c:1
-    ports:
-      - "9500:80"
-    networks:
-      - netPRO290.1
-    depends_on:
-      - userinfosqldb.c
-      - eureka.c
   
   dotnet-api-card.1.c:
     container_name: dotnet-api-card.1.c
@@ -109,7 +62,7 @@ services:
   dotnet-api-inventory.1.c:
     container_name: dotnet-api-inventory.1.c
     build:
-      context: ./InvetoryAPI/
+      context: ./InventoryAPI/
       dockerfile: Dockerfile
     image: dotnet-api-inventory.1.c:1
     ports:
