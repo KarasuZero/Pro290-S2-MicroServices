@@ -12,9 +12,10 @@ const Item = ({path, navigation }) => {
     
     <SafeAreaView style={styles.mainContainer}>
       <Text style={{ fontSize: 18, fontWeight: '800',marginTop:50,}}>{title}</Text>
-      <Text style={{ margin: 10 }}>Author : {author}</Text>
-      <Text style={{ margin: 10 }}>{dec}</Text>
-      <Text style={{ margin: 10 }}>Link to the article: {url}</Text>
+      <Text style={{ margin: 10 }}>Product : {title}</Text>
+      <Text style={{ margin: 10 }}>{desc}</Text>
+      <Text style={{ margin: 10 }}>Price : {unit_price}</Text>
+
       <Image
         source={{ uri: pic }}
         style={{ width: 200, height: 200, marginTop: 30 }}
@@ -40,22 +41,20 @@ const Item = ({path, navigation }) => {
 export default class Product extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      Product_id : '0' /* product indicator to iterate the list*/
-    }
+    this.state = {}
   }
 
   componentDidMount() {
+    this.itemCount();
     this.grabItems();
   }
 
-  grabItems(){
-    /* api calls goes here examples below*/
+  itemCount(){
 
-    const APIKEY = 'ed974b1cf4ce4021a84ea7e477f0098e';
-    const BASE_URL = 'https://newsapi.org/v2/top-headlines?sources=';
-    const PARAMS = `&apiKey=${APIKEY}`;
-    let FETCH_URL = `${BASE_URL}${this.state.news_source}${PARAMS}`;
+    const BASE_URL = 'http://localhost:5000/InventoryAPI/';
+    const PARAMS = `getInventory`;
+    let FETCH_URL = `${BASE_URL}${PARAMS}`;
+
     console.log(FETCH_URL)
     fetch(FETCH_URL, { method: 'GET' })
 
@@ -64,29 +63,43 @@ export default class Product extends Component {
 
         this.setState({ totalResults: json.totalResults});
 
+      });
+  }
+
+  grabItems(){
+
+    const BASE_URL = 'http://localhost:5000/InventoryAPI/';
+
+    for (let i = 0; i < this.state.totalResults; i += 1){
+      const PARAMS = `getItem/${i}`;
+      let FETCH_URL = `${BASE_URL}${PARAMS}`;
+      console.log(FETCH_URL)
+      fetch(FETCH_URL, { method: 'GET' })
+
+      .then((response) => response.json())
+      .then((json) => {
+
         for (let i = 0; i < this.state.totalResults; i += 1) {
           
-          this.setState({ [`headline_${i}`]: json.articles[i].title });
-          this.setState({ [`author_${i}`]: json.articles[i].author });
-          this.setState({ [`desc_${i}`]: json.articles[i].description });
-          this.setState({ [`image_${i}`]: json.articles[i].urlToImage });
-          this.setState({ [`linkToArticle_${i}`]: json.articles[i].url });
+          this.setState({ [`title_${i}`]: json.Title});
+          this.setState({ [`desc_${i}`]: json.Description });
+          this.setState({ [`price_${i}`]: json.Unit_price });
         }
       });
+    }
   }
 
   render(){
     let item_holder = []
 
     for (let i = 0; i < this.state.totalResults; i += 1) {
-      articles_holder.push(
-        <Product
+
+      item_holder.push(
+        <Item
           key={i}
-          title={this.state[`headline_${i}`]}
-          author={this.state[`author_${i}`]}
-          dec={this.state[`desc_${i}`]}
-          pic={this.state[`image_${i}`]}
-          url={this.state[`linkToArticle_${i}`]}
+          title={this.state[`tittle_${i}`]}
+          unit_price={this.state[`price_${i}`]}
+          desc={this.state[`desc_${i}`]}
         />
       );
     }
