@@ -52,13 +52,13 @@ namespace Controllers
         [Route("updateItem/")]
         public async Task<IResult> updateQuest(User user)
         {
-            var currItem = await _db.user_table.FindAsync(user.Id);
-            if (currItem != null) {
-                currItem.Title = item.Title;
-                currItem.unit_price = item.unit_price;
-                currItem.Description = item.Description;
+            var currUser = await _db.user_table.FindAsync(user.Id);
+            if (currUser != null) {
+                currUser.FName = user.FName;
+                currUser.LName = user.LName;
+                currUser.Email = user.Email;
                 await _db.SaveChangesAsync();
-                return Results.Created($"/{item.Id}", item);
+                return Results.Created($"/{user.Id}", user);
             }
             return Results.NoContent();
         }
@@ -66,10 +66,10 @@ namespace Controllers
         [HttpDelete]
         [Route("deleteQuest/{id}")]
         public async Task<IResult> deleteQuest(long id) {
-            if (await _db.item_table.FindAsync(id) is Item quest) {
-                _db.item_table.Remove(quest);
+            if (await _db.user_table.FindAsync(id) is User user) {
+                _db.user_table.Remove(user);
                 await _db.SaveChangesAsync();
-                return Results.Ok(quest);
+                return Results.Ok(user);
             }
             return Results.NotFound();
         }
