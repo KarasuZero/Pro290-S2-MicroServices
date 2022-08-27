@@ -1,5 +1,5 @@
 import React, { useState, useEffect,Component,ScrollView } from "react";
-import { Alert, View , Text, Image} from "react-native";
+import { Alert, View , Text, Button} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScaledSheet, verticalScale } from "react-native-size-matters";
 import CustomText from "../../components/CustomText";
@@ -11,14 +11,13 @@ const Item = ({path, navigation }) => {
   return (
     
     <SafeAreaView style={styles.mainContainer}>
-      <Text style={{ fontSize: 18, fontWeight: '800',marginTop:50,}}>{title}</Text>
-      <Text style={{ margin: 10 }}>Product : {title}</Text>
+    
+      <Text style={{ fontSize: 18, fontWeight: '800',marginTop:50,}}>Product : {title}</Text>
       <Text style={{ margin: 10 }}>{desc}</Text>
       <Text style={{ margin: 10 }}>Price : {unit_price}</Text>
 
-      <Image
-        source={{ uri: pic }}
-        style={{ width: 200, height: 200, marginTop: 30 }}
+      <Button title="Add to Cart"
+        onPress={() => addToCart(id)}
       />
 
       <CustomText
@@ -47,6 +46,15 @@ export default class Product extends Component {
   componentDidMount() {
     this.itemCount();
     this.grabItems();
+  }
+
+  addToCart(id){
+    const BASE_URL = 'http://localhost:5000/CartAPI/';
+    const PARAMS = id;
+    let FETCH_URL = `${BASE_URL}${PARAMS}`;
+
+    console.log(FETCH_URL)
+    //TODO post method needed
   }
 
   itemCount(){
@@ -81,6 +89,7 @@ export default class Product extends Component {
 
         for (let i = 0; i < this.state.totalResults; i += 1) {
           
+          this.setState({ [`id_${i}`]: json.Id});
           this.setState({ [`title_${i}`]: json.Title});
           this.setState({ [`desc_${i}`]: json.Description });
           this.setState({ [`price_${i}`]: json.Unit_price });
@@ -96,7 +105,7 @@ export default class Product extends Component {
 
       item_holder.push(
         <Item
-          key={i}
+          id={this.state[`Id_${i}`]}
           title={this.state[`tittle_${i}`]}
           unit_price={this.state[`price_${i}`]}
           desc={this.state[`desc_${i}`]}

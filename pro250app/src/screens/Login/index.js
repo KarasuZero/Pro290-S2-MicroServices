@@ -17,10 +17,18 @@ const Login = ({ navigation }) => {
         fontWeight="bold"
       />
 
-      <input ></input>
-      <input type="password"></input>
+      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, }} 
+      placeholder="Enter Your User Name">
+
+      </input>
+
+
+      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} type="password"
+      placeholder="Enter Your Password">
       
-      <Button
+      </input>
+      
+      <Button style={styles.bt}
         title="Login"
         onPress={() => navigation.navigate("Product")}
       />
@@ -43,7 +51,9 @@ const styles = ScaledSheet.create({
     padding: "20@ms",
     flex: 1,
   },
-  inputField : {
-    padding:"20@ms"
+  bt:{
+    padding: `10px`,
+    borderRadius: 80,
+    justifyContent:'center',
   },
 });
