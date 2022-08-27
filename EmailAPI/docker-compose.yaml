@@ -1,0 +1,8 @@
+version: "3.7" #I put ver 3.7 because documentaion said so, you can change if needed
+
+services:
+  emailAPI:
+    build:
+      context: ./
+    ports:
+      - 5000:5000 #defualt port
