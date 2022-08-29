@@ -1,3 +1,5 @@
+using CartAPI.Models;
+
 namespace CartAPI.Services {
     public interface ICartServices {
         List<Cart> Get();

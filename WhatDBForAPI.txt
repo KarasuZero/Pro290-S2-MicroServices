@@ -7,10 +7,10 @@ CartDB - Mongo
 *Might change to be a different table that is called just so we don't have initialize 2 db for items.
 
 Finished API
-    - Card
-    - InvDB
+    - Card X
+    - InvDB X
 Being Worked On
-    - SPA App
-    - UserDB
-    - EmailDB
-    - CartDB
+    - SPA App X
+    - UserDB X
+    - EmailDB X 
+    - CartDB X
