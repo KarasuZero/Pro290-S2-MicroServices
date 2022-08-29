@@ -16,15 +16,23 @@ const Register = ({ navigation, route }) => {
         fontWeight="bold"
       />
 
-      <input ></input>
-      <input type="password"></input>
+      <input style={{padding: `15px`, borderRadius: 80, marginTop:30}} 
+      placeholder="Create Your User Name">
+
+      </input>
+
+
+      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50}} type="password"
+      placeholder="Create Your Password">
+      
+      </input>
       <Button
-        title="Login"
+        title="Register"
         onPress={() => navigation.navigate("Product")}
       />
       
       <CustomButton
-        text="Login Page"
+        text="Back"
         alignSelf="center"
         marginTop={verticalScale(50)}
         onPress={() => navigation.navigate("Login")}
@@ -38,5 +46,16 @@ export default Register;
 const styles = ScaledSheet.create({
   mainContainer: {
     padding: "20@ms",
+  },
+  bt:{
+    padding: `10px`,
+    borderRadius: 80,
+    justifyContent:'center',
+  },
+  inputField:{
+    justifyContent:'center',
+    padding: `15px`, 
+    borderRadius: 80, 
+    marginBottom:40,
   },
 });

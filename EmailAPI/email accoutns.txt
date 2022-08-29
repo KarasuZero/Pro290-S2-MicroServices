@@ -1,0 +1,9 @@
+#email account I created for other lab, we can use this test/demo
+
+Email: person1EnTest@gmail.com	
+Email pass: person1EnTest123!
+App pass: aedtcblcnmedgvtz
+
+Email: person2EnTest@gmail.com
+Email pass: person2EnTest123!
+App pass: qnuhawzjvilblazm
