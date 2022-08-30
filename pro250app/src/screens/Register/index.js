@@ -1,4 +1,4 @@
-import { View,Button } from "react-native";
+import { View,Button,TextInput } from "react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScaledSheet, verticalScale } from "react-native-size-matters";
@@ -6,6 +6,11 @@ import CustomText from "../../components/CustomText";
 import CustomButton from "../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Register = ({ navigation, route }) => {
+  //sendId method
+  //send password method
+  //register method
+  const [userName, onChangeUserName] = React.useState("");
+  const [passWord, onChangePassword] = React.useState("");
 
   return (
 <SafeAreaView style={styles.mainContainer}>
@@ -16,16 +21,16 @@ const Register = ({ navigation, route }) => {
         fontWeight="bold"
       />
 
-      <input style={{padding: `15px`, borderRadius: 80, marginTop:30}} 
-      placeholder="Create Your User Name">
+      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, }} 
+      placeholder="Enter Your User Name"
+      onChangeText={onChangeUserName}
+      value={userName}/>
 
-      </input>
-
-
-      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50}} type="password"
-      placeholder="Create Your Password">
+      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} type="password"
+      placeholder="Enter Your Password"
+      onChangeText={onChangePassword}
+      value={passWord}/>
       
-      </input>
       <Button
         title="Register"
         onPress={() => navigation.navigate("Product")}
@@ -37,6 +42,8 @@ const Register = ({ navigation, route }) => {
         marginTop={verticalScale(50)}
         onPress={() => navigation.navigate("Login")}
       />
+
+      <view>Debugging info: user:{userName},pass:{passWord}</view>
     </SafeAreaView>
   );
 };
