@@ -54,7 +54,7 @@ namespace Controllers
             var currUser = await _db.user_table.FindAsync(Username);
             if (currUser != null) {
                 if (currUser.Password == Password) {
-                    return Results.Accepted("User Found!");
+                    return Results.Accepted("Login!");
                 }
                 return Results.NoContent();
             }
