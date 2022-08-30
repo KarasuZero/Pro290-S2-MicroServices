@@ -48,8 +48,21 @@ namespace Controllers
             return Results.Created($"/{user.Id}", user);
         }
 
+        [HttpPost]
+        [Route("loginUser/")]
+        public async Task<IResult> loginUser(string Password, string Username) {
+            var currUser = await _db.user_table.FindAsync(Username);
+            if (currUser != null) {
+                if (currUser.Password == Password) {
+                    return Results.Accepted("User Found!");
+                }
+                return Results.NoContent();
+            }
+            return Results.NoContent();
+        }
+
         [HttpPut]
-        [Route("updateItem/")]
+        [Route("updateUser/")]
         public async Task<IResult> updateQuest(User user)
         {
             var currUser = await _db.user_table.FindAsync(user.Id);
@@ -64,7 +77,7 @@ namespace Controllers
         }
 
         [HttpDelete]
-        [Route("deleteQuest/{id}")]
+        [Route("deleteUser/{id}")]
         public async Task<IResult> deleteQuest(long id) {
             if (await _db.user_table.FindAsync(id) is User user) {
                 _db.user_table.Remove(user);
