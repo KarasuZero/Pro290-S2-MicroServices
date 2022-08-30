@@ -58,6 +58,34 @@ services:
     depends_on:
       - userinfosqldb.c
       - eureka.c
+    
+  dotnet-api-user.1.c:
+    container_name: dotnet-api-user.1.c
+    build: 
+      context: ./UserAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-user.1.c:1
+    ports:
+      - "9502:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - userinfosqldb.c
+      - eureka
+
+  dotnet-api-user.2.c:
+    container_name: dotnet-api-user.2.c
+    build: 
+      context: ./UserAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-user.1.c:1
+    ports:
+      - "9503:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - userinfosqldb.c
+      - eureka
 
   dotnet-api-inventory.1.c:
     container_name: dotnet-api-inventory.1.c
@@ -66,13 +94,65 @@ services:
       dockerfile: Dockerfile
     image: dotnet-api-inventory.1.c:1
     ports:
-      - "9502:80"
+      - "9504:80"
     networks:
       - netPRO290.1
     depends_on:
       - inventorysqldb.c
       - eureka.c
+
+  dotnet-api-inventory.2.c:
+    container_name: dotnet-api-inventory.2.c
+    build:
+      context: ./InventoryAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-inventory.1.c:1
+    ports:
+      - "9505:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - inventorysqldb.c
+      - eureka.c
+
+  dotnet-api-cart.1.c:
+    container_name: dotnet-api-cart.1.c
+    build:
+      context: ./CartAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-cart.1.c:1
+    ports:
+      - "9506:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - eureka.c
+
+  dotnet-api-cart.2.c:
+    container_name: dotnet-api-cart.2.c
+    build:
+      context: ./CartAPI/
+      dockerfile: Dockerfile
+    image: dotnet-api-cart.1.c:1
+    ports:
+      - "9506:80"
+    networks:
+      - netPRO290.1
+    depends_on:
+      - eureka.c
   
+  python-api-email.1.c:
+    container_name: python-api-email.1.c
+    build: 
+      context: ./EmailAPI/
+      dockerfile: Dockerfile
+    image: python-api-email.1.c:1
+    ports:
+      - "5000:5000"
+    networks:
+      - netPRO290.1
+      - eureka
+
   apigateway.c:
     container_name: apigateway.c
     build:
