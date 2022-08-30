@@ -53,7 +53,7 @@ namespace Controllers
         public async Task<IResult> loginUser(string Password, string Username) {
             var currUser = await _db.user_table.FindAsync(Username);
             if (currUser != null) {
-                if (currUser.Password == Password) {
+                if (currUser.Pass == Password) {
                     return Results.Accepted("Login!");
                 }
                 return Results.NoContent();

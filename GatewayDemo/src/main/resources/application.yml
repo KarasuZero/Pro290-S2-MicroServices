@@ -15,28 +15,27 @@ spring:
       routes:
       #only to be touched when new apis need to be added.
       - id: userService
-        uri: lb://userAPI
+        uri: lb://user-api
         predicates:
         - Path=/users/**
-        
-      - id: basketService
-        uri: lb://basketAPI
+        filters:
+         - RewritePath=/users/(?<segment>.*), /$\{segment}
+            
+      - id: cartService
+        uri: lb://cart-api
         predicates:
-        - Path=/basket/**
-
-      - id: emailService
-        uri: lb://emailAPI
+        - Path=/cart/**
+        filters:
+         - RewritePath=/cart/(?<segment>.*), /$\{segment}
+    
+      - id: inventoryService
+        uri: lb://inventory-api
         predicates:
-        - Path=/email/**
-
-
-      - id: itemService
-        uri: lb://ITEM-SERVICE
-        predicates:
-        - Path=/itemAPI/**
-
+        - Path=/inventory/**
+        filters:
+          - RewritePath=/inventory/(?<segment>.*), /$\{segment}
 
       - id: cardService
-        uri: lb://CARD-API
+        uri: lb://card-api
         predicates:
         - Path=/creditCard/**
