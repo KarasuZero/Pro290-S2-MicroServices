@@ -1,7 +1,14 @@
 from flask import Flask
 from flask_mail import Mail, Message
+from flask_eureka import Eureka
+from flask_eureka.eureka import eureka_bp
 
 app = Flask(__name__)
+
+eureka = Eureka(app)
+eureka.register_service(name="email-api")
+app.register_blueprint(eureka_bp)
+
 mail= Mail(app)
 
 app.config['MAIL_SERVER']='smtp.gmail.com'                  #conn using smtp protocal

@@ -1,4 +1,4 @@
-import { Button,Alert, View } from "react-native";
+import { Button,Alert, View,TextInput } from "react-native";
 import React, { useState } from "react";
 import { ScaledSheet, verticalScale } from "react-native-size-matters";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +7,13 @@ import CustomInput from "../../components/CustomInput";
 import CustomText from "../../components/CustomText";
 
 const Login = ({ navigation }) => {
- 
+ //sendId method
+ //send password method
+ //login verificaiton method
+  const [userName, onChangeUserName] = React.useState("");
+  const [passWord, onChangePassword] = React.useState("");
+
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <CustomText
@@ -17,16 +23,16 @@ const Login = ({ navigation }) => {
         fontWeight="bold"
       />
 
-      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, }} 
-      placeholder="Enter Your User Name">
+      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, }} 
+      placeholder="Enter Your User Name"
+      onChangeText={onChangeUserName}
+      value={userName}/>
 
-      </input>
-
-
-      <input style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} type="password"
-      placeholder="Enter Your Password">
+      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} secureTextEntry={true}
+      placeholder="Enter Your Password"
+      onChangeText={onChangePassword}
+      value={passWord}/>
       
-      </input>
       
       <Button style={styles.bt}
         title="Login"
@@ -39,6 +45,8 @@ const Login = ({ navigation }) => {
         marginTop={verticalScale(50)}
         onPress={() => navigation.navigate("Register")}
       />
+
+      <View>Debugging info: user:{userName},pass:{passWord}</View>
     </SafeAreaView>
   );
 };
