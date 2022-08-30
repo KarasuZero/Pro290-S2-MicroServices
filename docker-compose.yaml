@@ -140,7 +140,7 @@ services:
       - netPRO290.1
     depends_on:
       - eureka.c
-  
+
   python-api-email.1.c:
     container_name: python-api-email.1.c
     build: 
@@ -151,7 +151,8 @@ services:
       - "5000:5000"
     networks:
       - netPRO290.1
-      - eureka
+    depends_on:
+      - eureka.c
 
   apigateway.c:
     container_name: apigateway.c
