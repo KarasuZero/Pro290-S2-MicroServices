@@ -128,19 +128,6 @@ services:
     depends_on:
       - eureka.c
 
-  dotnet-api-cart.2.c:
-    container_name: dotnet-api-cart.2.c
-    build:
-      context: ./CartAPI/
-      dockerfile: Dockerfile
-    image: dotnet-api-cart.1.c:1
-    ports:
-      - "9506:80"
-    networks:
-      - netPRO290.1
-    depends_on:
-      - eureka.c
-
   apigateway.c:
     container_name: apigateway.c
     build:
