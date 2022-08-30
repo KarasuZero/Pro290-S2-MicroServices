@@ -26,7 +26,7 @@ const Register = ({ navigation, route }) => {
       onChangeText={onChangeUserName}
       value={userName}/>
 
-      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} type="password"
+      <TextInput style={{padding: `15px`, borderRadius: 80, marginTop:30, marginBottom: 50, }} secureTextEntry={true}
       placeholder="Enter Your Password"
       onChangeText={onChangePassword}
       value={passWord}/>
