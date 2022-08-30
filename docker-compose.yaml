@@ -71,7 +71,7 @@ services:
       - netPRO290.1
     depends_on:
       - userinfosqldb.c
-      - eureka
+      - eureka.c
 
   dotnet-api-user.2.c:
     container_name: dotnet-api-user.2.c
@@ -85,7 +85,7 @@ services:
       - netPRO290.1
     depends_on:
       - userinfosqldb.c
-      - eureka
+      - eureka.c
 
   dotnet-api-inventory.1.c:
     container_name: dotnet-api-inventory.1.c
