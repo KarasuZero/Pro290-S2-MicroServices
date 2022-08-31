@@ -27,6 +27,13 @@ namespace Controllers
         {
             return await _db.item_table.ToListAsync();
         }
+
+        [HttpGet]
+        [Route("getItemAmt/")]
+        public async Task<ActionResult<int>> getItemAmt() {
+            List<Item> vals = await _db.item_table.ToListAsync();
+            return vals.Count;
+        }
         
         [HttpGet]
         [Route("getItem/{id}")]
@@ -61,7 +68,6 @@ namespace Controllers
             }
             return Ok(quest);
         }
-
 
         [HttpPost]
         public async Task<IResult> createQuest(Item quest)

@@ -18,7 +18,7 @@ namespace Controllers
         [Route("test")]
         public ActionResult<string> test()
         {
-            return "Hello netizen! The inventory is on-line!";
+            return "Hello netizen! The user API is on-line!";
         }
 
         [HttpGet]

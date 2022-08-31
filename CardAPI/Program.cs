@@ -29,7 +29,7 @@ app.UseCors();
 bool properValidation = false;
 
 app.MapGet("/creditCard/", () => {
-    return "It's Working!";
+    return "Hello netizen! The credit card is on-line!!";
 });
 
 app.MapPost("/creditCard/checkCard", (Card card) => {

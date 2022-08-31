@@ -7,8 +7,8 @@ namespace CartAPI.Services {
         private readonly IMongoCollection<Cart> _carts;
 
         public CartServices(ICartDBSettings settings, IMongoClient mongoClient) {
-            var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _carts = database.GetCollection<Cart>(settings.CollectionName);
+            var database = mongoClient.GetDatabase("CartsDB");
+            _carts = database.GetCollection<Cart>("Carts");
         }
 
         public Cart Create(Cart cart) {

@@ -8,6 +8,7 @@ namespace CartAPI.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = String.Empty;
+        
         [BsonElement("data")]
         public List<List<int>>? cartData {get; set;}
     }
